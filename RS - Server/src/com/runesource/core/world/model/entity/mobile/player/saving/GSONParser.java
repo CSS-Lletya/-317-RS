@@ -8,13 +8,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.Logger;
-
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.runesource.core.world.model.entity.mobile.player.Player;
+import com.runesource.util.Logger;
 
 /**
  * @author Melvin 27 jan. 2020
@@ -24,8 +22,6 @@ import com.runesource.core.world.model.entity.mobile.player.Player;
 public class GSONParser {
 
 	private static Gson GSON;
-
-	private static Logger logger;
 
 	static {
 		GSON = new GsonBuilder().setPrettyPrinting().disableInnerClassSerialization().enableComplexMapKeySerialization()
@@ -37,8 +33,7 @@ public class GSONParser {
 			return GSON.fromJson(reader, type);
 		} catch (IOException e) {
 			e.printStackTrace();
-
-			logger.log(Level.FATAL, "Could not load %s");
+			Logger.log("Load", e);
 		}
 		return null;
 	}
