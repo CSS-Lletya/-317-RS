@@ -57,14 +57,17 @@ public final class World implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
+			long start = System.currentTimeMillis();
 			try {
-				playerRespitory.values().forEach(player -> {
-					player.getEventHandler().updateMovement(player);
-					player.getEventHandler().update(player);
-					player.reset();
-				});
-				Thread.sleep(600);
-			} catch (InterruptedException e) {
+				playerRespitory.values().forEach($it -> $it.getEventHandler().updateMovement($it));
+				playerRespitory.values().forEach($it -> $it.getEventHandler().update($it));
+				playerRespitory.values().forEach($it -> $it.reset());
+				long elapsed= System.currentTimeMillis() - start;
+				long sleepTime = 600 - elapsed;
+				if (sleepTime > 0) {
+					Thread.sleep(sleepTime);
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
