@@ -27,6 +27,7 @@ public final class World implements Runnable {
 		playerRespitory.put(player.getIndex(), player);
 	}
 	
+	@SuppressWarnings("unlikely-arg-type")
 	public void unregister(Player player) {
 		playerRespitory.remove(player);
 		playerIndices.openValue(player.getIndex());
@@ -37,6 +38,7 @@ public final class World implements Runnable {
 		npcRespitory.put(npc.getIndex(), npc);
 	}
 	
+	@SuppressWarnings("unlikely-arg-type")
 	public void unregister(Npc npc) {
 		npcRespitory.remove(npc);
 		npcIndices.openValue(npc.getIndex());
