@@ -1,0 +1,11 @@
+{
+  "username": "mopar",
+  "password": "bob",
+  "staffRights": 0,
+  "position": {
+    "x": 3221,
+    "y": 3220,
+    "z": 0
+  },
+  "index": 0
+}

@@ -27,10 +27,10 @@ import com.runesource.core.world.model.entity.mobile.player.Player;
 public class Npc extends Player {
 
 	/** The NPC ID. */
-	private int npcId;
+	private transient int npcId;
 
 	/** Whether or not the NPC is visible. */
-	private boolean isVisible = true;
+	private transient boolean isVisible = true;
 
 	/**
 	 * Creates a new Npc.

@@ -11,50 +11,51 @@ import com.runesource.core.world.World;
 import com.runesource.core.world.model.entity.mobile.MobileEntity;
 import com.runesource.core.world.model.entity.mobile.MovementHandler;
 import com.runesource.core.world.model.entity.mobile.npc.Npc;
+import com.runesource.core.world.model.entity.mobile.player.saving.AccountCreation;
 
 import io.netty.channel.Channel;
 
 public class Player extends MobileEntity {
 	
-	private MovementHandler movementHandler = new MovementHandler(this);
+	private transient MovementHandler movementHandler = new MovementHandler(this);
 	
-	private Position currentRegion = new Position(0, 0, 0);
+	private transient Position currentRegion = new Position(0, 0, 0);
 	
-	private final List<Player> players = new LinkedList<Player>();
+	private transient final List<Player> players = new LinkedList<Player>();
 	 
-	private final List<Npc> npcs = new LinkedList<Npc>();
+	private transient final List<Npc> npcs = new LinkedList<Npc>();
 	
-	private final PlayerEventHandler eventHandler = new PlayerEventHandler();
+	private transient final PlayerEventHandler eventHandler = new PlayerEventHandler();
 	
-	private final PlayerAppearance appearance = new PlayerAppearance();
+	private transient final PlayerAppearance appearance = new PlayerAppearance();
 	
-	private final Channel channel;
+	private transient final Channel channel;
 	
 	private final String username;
 	
 	private final String password;
 	
-	private final SecureCipher secureRead;
+	private transient final SecureCipher secureRead;
 	
-	private final SecureCipher secureWrite;	
+	private transient final SecureCipher secureWrite;	
 	
 	private int staffRights = 0;
 	
-	private int chatColor;
+	private transient int chatColor;
 	
-	private int chatEffects;
+	private transient int chatEffects;
 	
-	private byte[] chatText;
+	private transient byte[] chatText;
 	
-	private boolean updateRequired;
+	private transient boolean updateRequired;
 	
-	private boolean appearanceUpdateRequired;
+	private transient boolean appearanceUpdateRequired;
 	
-	private boolean chatUpdateRequired;
+	private transient boolean chatUpdateRequired;
 	
-	private boolean needsPlacement;
+	private transient boolean needsPlacement;
 	
-	private boolean resetMovementQueue;
+	private transient boolean resetMovementQueue;
 
 	public Player(PlayerCredentials credentials) {
 		super(new Position(3222, 3222));
@@ -94,19 +95,12 @@ public class Player extends MobileEntity {
 	public void disconnect() {
 		System.out.println(this.getUsername() + " disconnecting.");
 		try {
-			logout();
+			World.getSingleton().unregister(this);
+			AccountCreation.savePlayer(this);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
 			channel.close();
-		}
-	}
-	
-	public void logout() throws Exception {
-		World.getSingleton().unregister(this);
-		System.out.println(this.getUsername() + " has logged out.");
-		if (getIndex() != -1) {
-			PlayerSave.save(this);
 		}
 	}
 	

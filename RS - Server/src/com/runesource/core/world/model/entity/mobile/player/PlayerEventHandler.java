@@ -9,6 +9,7 @@ import com.runesource.core.network.packet.out.RegionalUpdatePacket;
 import com.runesource.core.network.packet.out.RegisterPlayerPacket;
 import com.runesource.core.world.Position;
 import com.runesource.core.world.World;
+import com.runesource.core.world.model.entity.mobile.player.saving.AccountCreation;
 import com.runesource.util.Misc;
 import com.runesource.util.StreamBuffer;
 import com.runesource.util.StreamBuffer.OutBuffer;
@@ -28,7 +29,7 @@ public final class PlayerEventHandler implements PlayerEventListener {
 		}
 		int status = 0;
 		try {
-			status = PlayerSave.load(player);
+			AccountCreation.loadPlayer(player.getUsername());/*PlayerSave.load(player);*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

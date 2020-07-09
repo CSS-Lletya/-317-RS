@@ -16,7 +16,7 @@ public final class World implements Runnable {
 	
 	private final IndexQueue playerIndices = new IndexQueue(2000);
 	
-	private final Map<Integer, Npc> npcRespitory = new ConcurrentHashMap<>(8000);
+	private transient final Map<Integer, Npc> npcRespitory = new ConcurrentHashMap<>(8000);
 	
 	private final IndexQueue npcIndices = new IndexQueue(8000);
 	

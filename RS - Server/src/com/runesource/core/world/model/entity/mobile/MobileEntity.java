@@ -5,11 +5,11 @@ import com.runesource.core.world.model.entity.Entity;
 
 public abstract class MobileEntity extends Entity {
 
-	private int walkingDirection = -1;
+	private transient int walkingDirection = -1;
 	
-	private int runningDirection = -1;
+	private transient int runningDirection = -1;
 	
-	private int index;
+	private transient int index;
 	
 	public MobileEntity(Position position) {
 		super(position);
