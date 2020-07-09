@@ -1,4 +1,5 @@
 package com.runesource.core.world.model.entity.mobile.npc;
+
 import com.runesource.core.world.model.entity.mobile.player.Player;
 
 /*
@@ -35,8 +36,7 @@ public class Npc extends Player {
 	/**
 	 * Creates a new Npc.
 	 * 
-	 * @param npcId
-	 *            the NPC ID
+	 * @param npcId the NPC ID
 	 */
 	public Npc(int npcId) {
 		super(null); // No selection key.
@@ -58,8 +58,7 @@ public class Npc extends Player {
 	/**
 	 * Sets the NPC ID.
 	 * 
-	 * @param npcId
-	 *            the npcId
+	 * @param npcId the npcId
 	 */
 	public void setNpcId(int npcId) {
 		this.npcId = npcId;

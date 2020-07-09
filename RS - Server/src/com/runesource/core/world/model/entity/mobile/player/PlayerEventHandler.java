@@ -14,6 +14,12 @@ import com.runesource.util.Misc;
 import com.runesource.util.StreamBuffer;
 import com.runesource.util.StreamBuffer.OutBuffer;
 
+/**
+ * Represents the Player's Event handling.
+ * 
+ * @author Dennis
+ *
+ */
 public final class PlayerEventHandler implements PlayerEventListener {
 
 	@Override
@@ -29,7 +35,7 @@ public final class PlayerEventHandler implements PlayerEventListener {
 		}
 		int status = 0;
 		try {
-			AccountCreation.loadPlayer(player.getUsername());/*PlayerSave.load(player);*/
+			AccountCreation.loadPlayer(player.getUsername());/* PlayerSave.load(player); */
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,12 +76,12 @@ public final class PlayerEventHandler implements PlayerEventListener {
 	public void update(Player player) {
 		player.dispatch(new PlayerUpdatePacket());
 	}
-	
+
 	@Override
 	public void updateMovement(Player player) {
 		player.getMovementHandler().process();
 	}
-	
+
 	@Override
 	public void updateMovement(Player player, OutBuffer out) {
 		boolean updateRequired = player.isUpdateRequired();
@@ -88,23 +94,23 @@ public final class PlayerEventHandler implements PlayerEventListener {
 			out.writeBits(7, player.getPosition().getLocalY(player.getCurrentRegion()));
 			out.writeBits(7, player.getPosition().getLocalX(player.getCurrentRegion()));
 		} else {
-			if (player.getWalkingDirection() != -1) { 
-				out.writeBit(true); 
-				if (player.getRunningDirection() != -1) { 
+			if (player.getWalkingDirection() != -1) {
+				out.writeBit(true);
+				if (player.getRunningDirection() != -1) {
 					out.writeBits(2, 2);
 					out.writeBits(3, player.getWalkingDirection());
 					out.writeBits(3, player.getRunningDirection());
 					out.writeBit(player.isUpdateRequired());
-				} else { 
+				} else {
 					out.writeBits(2, 1);
 					out.writeBits(3, player.getWalkingDirection());
 					out.writeBit(player.isUpdateRequired());
 				}
-			} else { 
-				if (updateRequired) { 
-					out.writeBit(true); 
+			} else {
+				if (updateRequired) {
+					out.writeBit(true);
 					out.writeBits(2, 0);
-				} else { 
+				} else {
 					out.writeBit(false);
 				}
 			}
@@ -140,88 +146,90 @@ public final class PlayerEventHandler implements PlayerEventListener {
 		properties.writeByte(player.getAppearance().toArray()[PlayerAppearance.GENDER]); // Gender
 		properties.writeByte(0); // Skull icon
 		// Hat.
-		//if (e[Misc.EQUIPMENT_SLOT_HEAD] > 1) {
-			//block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_HEAD]);
-		//} else {
-			properties.writeByte(0);
-		//}
+		// if (e[Misc.EQUIPMENT_SLOT_HEAD] > 1) {
+		// block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_HEAD]);
+		// } else {
+		properties.writeByte(0);
+		// }
 
 		// Cape.
-		//if (e[Misc.EQUIPMENT_SLOT_CAPE] > 1) {
-			//block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_CAPE]);
-		//} else {
-			properties.writeByte(0);
-		//}
+		// if (e[Misc.EQUIPMENT_SLOT_CAPE] > 1) {
+		// block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_CAPE]);
+		// } else {
+		properties.writeByte(0);
+		// }
 
 		// Amulet.
-		//if (e[Misc.EQUIPMENT_SLOT_AMULET] > 1) {
-			//block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_AMULET]);
-		//} else {
-			properties.writeByte(0);
-		//}
+		// if (e[Misc.EQUIPMENT_SLOT_AMULET] > 1) {
+		// block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_AMULET]);
+		// } else {
+		properties.writeByte(0);
+		// }
 
 		// Weapon.
-		//if (e[Misc.EQUIPMENT_SLOT_WEAPON] > 1) {
-			//block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_WEAPON]);
-		//} else {
-			properties.writeByte(0);
-		//}
+		// if (e[Misc.EQUIPMENT_SLOT_WEAPON] > 1) {
+		// block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_WEAPON]);
+		// } else {
+		properties.writeByte(0);
+		// }
 
 		// Chest.
-		//if (e[Misc.EQUIPMENT_SLOT_CHEST] > 1) {
-			//block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_CHEST]);
-		//} else {
-			properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.TORSO]);
-		//}
+		// if (e[Misc.EQUIPMENT_SLOT_CHEST] > 1) {
+		// block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_CHEST]);
+		// } else {
+		properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.TORSO]);
+		// }
 
 		// Shield.
-		//if (e[Misc.EQUIPMENT_SLOT_SHIELD] > 1) {
-			//block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_SHIELD]);
-		//} else {
-			properties.writeByte(0);
-		//}
+		// if (e[Misc.EQUIPMENT_SLOT_SHIELD] > 1) {
+		// block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_SHIELD]);
+		// } else {
+		properties.writeByte(0);
+		// }
 
 		// Arms TODO: Check platebody/non-platebody.
-		//if (e[Misc.EQUIPMENT_SLOT_CHEST] > 1) {
-			//block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_CHEST]);
-		//} else {
-			properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.ARMS]);
-		//}
+		// if (e[Misc.EQUIPMENT_SLOT_CHEST] > 1) {
+		// block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_CHEST]);
+		// } else {
+		properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.ARMS]);
+		// }
 
 		// Legs.
-		//if (e[Misc.EQUIPMENT_SLOT_LEGS] > 1) {
-			//block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_LEGS]);
-		//} else {
-			properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.LEGS]);
-		//}
+		// if (e[Misc.EQUIPMENT_SLOT_LEGS] > 1) {
+		// block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_LEGS]);
+		// } else {
+		properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.LEGS]);
+		// }
 
 		// Head (with a hat already on).
-		//if (Misc.isFullHelm(e[Misc.EQUIPMENT_SLOT_HEAD]) || Misc.isFullMask(Misc.EQUIPMENT_SLOT_HEAD)) {
-			//block.writeByte(0);
-		//} else {
-			properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.HEAD]);
-		//}
+		// if (Misc.isFullHelm(e[Misc.EQUIPMENT_SLOT_HEAD]) ||
+		// Misc.isFullMask(Misc.EQUIPMENT_SLOT_HEAD)) {
+		// block.writeByte(0);
+		// } else {
+		properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.HEAD]);
+		// }
 
 		// Hands.
-		//if (e[Misc.EQUIPMENT_SLOT_HANDS] > 1) {
-			//block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_HANDS]);
-		//} else {
-			properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.HANDS]);
-		//}
+		// if (e[Misc.EQUIPMENT_SLOT_HANDS] > 1) {
+		// block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_HANDS]);
+		// } else {
+		properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.HANDS]);
+		// }
 
 		// Feet.
-		//if (e[Misc.EQUIPMENT_SLOT_FEET] > 1) {
-			//block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_FEET]);
-		//} else {
-			properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.FEET]);
-		//}
+		// if (e[Misc.EQUIPMENT_SLOT_FEET] > 1) {
+		// block.writeShort(0x200 + e[Misc.EQUIPMENT_SLOT_FEET]);
+		// } else {
+		properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.FEET]);
+		// }
 
 		// Beard.
-		//if (Misc.isFullHelm(e[Misc.EQUIPMENT_SLOT_HEAD]) || Misc.isFullMask(Misc.EQUIPMENT_SLOT_HEAD)) {
-			//block.writeByte(0);
-		//} else {
-			properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.BEARD]);
-		//}
+		// if (Misc.isFullHelm(e[Misc.EQUIPMENT_SLOT_HEAD]) ||
+		// Misc.isFullMask(Misc.EQUIPMENT_SLOT_HEAD)) {
+		// block.writeByte(0);
+		// } else {
+		properties.writeShort(0x100 + player.getAppearance().toArray()[PlayerAppearance.BEARD]);
+		// }
 
 		// Player colors
 		properties.writeByte(player.getAppearance().toArray()[PlayerAppearance.HAIR_COLOR]);
@@ -250,7 +258,8 @@ public final class PlayerEventHandler implements PlayerEventListener {
 
 	@Override
 	public void updateChat(Player player, OutBuffer block) {
-		block.writeShort(((player.getChatColor() & 0xff) << 8) + (player.getChatEffects() & 0xff), StreamBuffer.ByteOrder.LITTLE);
+		block.writeShort(((player.getChatColor() & 0xff) << 8) + (player.getChatEffects() & 0xff),
+				StreamBuffer.ByteOrder.LITTLE);
 		block.writeByte(player.getStaffRights());
 		block.writeByte(player.getChatText().length, StreamBuffer.ValueType.C);
 		block.writeBytesReverse(player.getChatText());
@@ -282,8 +291,8 @@ public final class PlayerEventHandler implements PlayerEventListener {
 			if (!player.getPlayers().contains(other) && other.getPosition().isViewableFrom(player.getPosition())) {
 				player.getPlayers().add(other);
 				out.writeBits(11, other.getIndex());
-				out.writeBit(true); 
-				out.writeBit(true); 
+				out.writeBit(true);
+				out.writeBit(true);
 				Position delta = Misc.delta(player.getPosition(), other.getPosition());
 				out.writeBits(5, delta.getY());
 				out.writeBits(5, delta.getX());
@@ -296,19 +305,19 @@ public final class PlayerEventHandler implements PlayerEventListener {
 	public void updateLocalMovement(Player player, OutBuffer out) {
 		boolean updateRequired = player.isUpdateRequired();
 		if (player.getWalkingDirection() != -1) {
-			out.writeBit(true); 
+			out.writeBit(true);
 			if (player.getRunningDirection() != -1) {
 				out.writeBits(2, 2);
 				out.writeBits(3, player.getWalkingDirection());
 				out.writeBits(3, player.getRunningDirection());
 				out.writeBit(player.isUpdateRequired());
-			} else { 
+			} else {
 				out.writeBits(2, 1);
 				out.writeBits(3, player.getWalkingDirection());
 				out.writeBit(player.isUpdateRequired());
 			}
 		} else {
-			if (updateRequired) { 
+			if (updateRequired) {
 				out.writeBit(true);
 				out.writeBits(2, 0);
 			} else {
@@ -316,5 +325,4 @@ public final class PlayerEventHandler implements PlayerEventListener {
 			}
 		}
 	}
-
 }

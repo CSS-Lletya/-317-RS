@@ -18,6 +18,8 @@ package com.runesource.core.network;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.runesource.GameConstants;
+
 /**
  * A static gateway type class that is used to limit the maximum amount of
  * connections per host.
@@ -26,17 +28,13 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class HostGateway {
 
-	/** The maximum amount of connections per host. */
-	public static final int MAX_CONNECTIONS_PER_HOST = 5;
-
 	/** Used to keep track of hosts and their amount of connections. */
 	private static ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<String, Integer>();
 
 	/**
 	 * Checks the host into the gateway.
 	 * 
-	 * @param host
-	 *            the host
+	 * @param host the host
 	 * @return true if the host can connect, false if it has reached the maximum
 	 *         amount of connections
 	 */
@@ -49,7 +47,7 @@ public class HostGateway {
 		}
 
 		// If they've reached the connection limit, return false.
-		if (amount == MAX_CONNECTIONS_PER_HOST) {
+		if (amount == GameConstants.MAX_CONNECTIONS_PER_HOST) {
 			return false;
 		}
 
@@ -61,8 +59,7 @@ public class HostGateway {
 	/**
 	 * Unchecks the host from the gateway.
 	 * 
-	 * @param host
-	 *            the host
+	 * @param host the host
 	 */
 	public static void exit(String host) {
 		Integer amount = map.get(host);
@@ -78,5 +75,4 @@ public class HostGateway {
 			map.replace(host, amount - 1);
 		}
 	}
-
 }

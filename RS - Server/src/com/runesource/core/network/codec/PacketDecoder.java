@@ -11,10 +11,21 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
+/**
+ * Represents the Packet decoder.
+ * @author Dennis
+ *
+ */
 public final class PacketDecoder extends ByteToMessageDecoder {
 
+	/**
+	 * Creates an instance of the SecureCipher.
+	 */
 	private final SecureCipher decipher;
 	
+	/**
+	 * Constructions the SecureCirpher.
+	 */
 	public PacketDecoder(SecureCipher decipher) {
 		this.decipher = decipher;
 	}
@@ -36,7 +47,6 @@ public final class PacketDecoder extends ByteToMessageDecoder {
 		ByteBuf payload = Unpooled.buffer(size);
 		payload.writeBytes(data);
 		out.add(new Packet(opcode, payload));
-		System.out.println("Packet - [opcode = " + opcode + ", size = " + size + "]");
+//		System.out.println("Packet - [opcode = " + opcode + ", size = " + size + "]");
 	}
-
 }

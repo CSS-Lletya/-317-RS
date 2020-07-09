@@ -12,14 +12,25 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
+/**
+ * Represents the Login Decoder.
+ * @author Dennis
+ *
+ */
 public final class LoginDecoder extends ByteToMessageDecoder {
 
+	/**
+	 * Creates an instance of the Logging services
+	 */
 	private final Logger logger;
-	
+
+	/**
+	 * Constructions the Logging service for the Network
+	 */
 	public LoginDecoder() {
 		this.logger = Logger.getLogger(getClass().getName());
 	}
-	
+
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
 		final int opcode = in.readUnsignedByte();
@@ -49,12 +60,12 @@ public final class LoginDecoder extends ByteToMessageDecoder {
 		in.skipBytes(39);
 		final long clientSeed = in.readLong();
 		final long serverSeed = in.readLong();
-		final int seed [] = { (int) (clientSeed >> 32), (int) clientSeed, (int) (serverSeed >> 32), (int) serverSeed };
+		final int seed[] = { (int) (clientSeed >> 32), (int) clientSeed, (int) (serverSeed >> 32), (int) serverSeed };
 		SecureCipher decipher = new SecureCipher(seed);
 		for (int i = 0; i < seed.length; i++) {
 			seed[i] += 50;
 		}
-		SecureCipher encipher = new SecureCipher(seed);		
+		SecureCipher encipher = new SecureCipher(seed);
 		in.skipBytes(4);
 		InBuffer reader = StreamBuffer.newInBuffer(in);
 		final String username = reader.readString();
@@ -63,5 +74,4 @@ public final class LoginDecoder extends ByteToMessageDecoder {
 		ctx.pipeline().replace("decoder", "decoder", new PacketDecoder(decipher));
 		logger.info("Login - [username = " + username + " address = " + ctx.channel().remoteAddress() + "]");
 	}
-
 }

@@ -6,6 +6,12 @@ import com.runesource.util.StreamBuffer;
 
 import io.netty.buffer.ByteBuf;
 
+/**
+ * Builds the appearance of the Player itself to render onto the client.
+ * 
+ * @author Dennis
+ *
+ */
 public final class PlayerUpdatePacket implements OutboundPacket {
 
 	@Override
@@ -29,5 +35,4 @@ public final class PlayerUpdatePacket implements OutboundPacket {
 		out.finishVariableShortPacketHeader();
 		return out.getBuffer();
 	}
-
 }

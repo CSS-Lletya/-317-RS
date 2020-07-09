@@ -7,10 +7,24 @@ import com.runesource.util.StreamBuffer.OutBuffer;
 
 import io.netty.buffer.ByteBuf;
 
+/**
+ * Sends the users message to for the client to handle.
+ * 
+ * @author Dennis
+ *
+ */
 public final class MessagePacket implements OutboundPacket {
 
+	/**
+	 * The message in which the user has specified.
+	 */
 	private final String message;
-	
+
+	/**
+	 * Constructs the new message from the user.
+	 * 
+	 * @param message
+	 */
 	public MessagePacket(String message) {
 		this.message = message;
 	}
@@ -23,5 +37,4 @@ public final class MessagePacket implements OutboundPacket {
 		out.finishVariablePacketHeader();
 		return out.getBuffer();
 	}
-
 }

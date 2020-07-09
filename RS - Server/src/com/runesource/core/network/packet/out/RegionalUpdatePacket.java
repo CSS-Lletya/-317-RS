@@ -7,6 +7,12 @@ import com.runesource.util.StreamBuffer.OutBuffer;
 
 import io.netty.buffer.ByteBuf;
 
+/**
+ * Sends the Regions update packet.
+ * 
+ * @author Dennis
+ *
+ */
 public final class RegionalUpdatePacket implements OutboundPacket {
 
 	@Override
@@ -19,5 +25,4 @@ public final class RegionalUpdatePacket implements OutboundPacket {
 		player.setNeedsPlacement(true);
 		return out.getBuffer();
 	}
-
 }

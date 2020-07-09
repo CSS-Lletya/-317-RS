@@ -11,9 +11,9 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public final class ChannelHandler extends SimpleChannelInboundHandler<Object> {
 
 	private PacketManager packetManager = new PacketManager();
-	
+
 	private Player player;
-	
+
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 		if (msg instanceof PlayerCredentials) {
@@ -33,5 +33,4 @@ public final class ChannelHandler extends SimpleChannelInboundHandler<Object> {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-
 }

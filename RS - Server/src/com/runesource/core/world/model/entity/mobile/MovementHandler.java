@@ -40,8 +40,7 @@ public class MovementHandler {
 	/**
 	 * Creates a new MovementHandler.
 	 * 
-	 * @param player
-	 *            the Player
+	 * @param player the Player
 	 */
 	public MovementHandler(Player player) {
 		this.player = player;
@@ -57,11 +56,13 @@ public class MovementHandler {
 			runPoint = waypoints.poll();
 		}
 		if (walkPoint != null && walkPoint.getDirection() != -1) {
-			player.getPosition().move(Misc.DIRECTION_DELTA_X[walkPoint.getDirection()], Misc.DIRECTION_DELTA_Y[walkPoint.getDirection()]);
+			player.getPosition().move(Misc.DIRECTION_DELTA_X[walkPoint.getDirection()],
+					Misc.DIRECTION_DELTA_Y[walkPoint.getDirection()]);
 			player.setWalkingDirection(walkPoint.getDirection());
 		}
 		if (runPoint != null && runPoint.getDirection() != -1) {
-			player.getPosition().move(Misc.DIRECTION_DELTA_X[runPoint.getDirection()], Misc.DIRECTION_DELTA_Y[runPoint.getDirection()]);
+			player.getPosition().move(Misc.DIRECTION_DELTA_X[runPoint.getDirection()],
+					Misc.DIRECTION_DELTA_Y[runPoint.getDirection()]);
 			player.setRunningDirection(runPoint.getDirection());
 		}
 
@@ -97,8 +98,7 @@ public class MovementHandler {
 	/**
 	 * Adds a position to the path.
 	 * 
-	 * @param position
-	 *            the position
+	 * @param position the position
 	 */
 	public void addToPath(Position position) {
 		if (waypoints.size() == 0) {
@@ -126,10 +126,8 @@ public class MovementHandler {
 	/**
 	 * Adds a step.
 	 * 
-	 * @param x
-	 *            the X coordinate
-	 * @param y
-	 *            the Y coordinate
+	 * @param x the X coordinate
+	 * @param y the Y coordinate
 	 */
 	private void addStep(int x, int y) {
 		if (waypoints.size() >= 100) {
@@ -147,8 +145,7 @@ public class MovementHandler {
 	/**
 	 * Toggles the running flag.
 	 * 
-	 * @param runToggled
-	 *            the flag
+	 * @param runToggled the flag
 	 */
 	public void setRunToggled(boolean runToggled) {
 		this.runToggled = runToggled;
@@ -166,8 +163,7 @@ public class MovementHandler {
 	/**
 	 * Toggles running for the current path only.
 	 * 
-	 * @param runPath
-	 *            the flag
+	 * @param runPath the flag
 	 */
 	public void setRunPath(boolean runPath) {
 		this.runPath = runPath;
@@ -194,12 +190,9 @@ public class MovementHandler {
 		/**
 		 * Creates a new Point.
 		 * 
-		 * @param x
-		 *            the X coordinate
-		 * @param y
-		 *            the Y coordinate
-		 * @param direction
-		 *            the direction to this point
+		 * @param x         the X coordinate
+		 * @param y         the Y coordinate
+		 * @param direction the direction to this point
 		 */
 		public Point(int x, int y, int direction) {
 			super(x, y);
@@ -209,8 +202,7 @@ public class MovementHandler {
 		/**
 		 * Sets the direction.
 		 * 
-		 * @param direction
-		 *            the direction
+		 * @param direction the direction
 		 */
 		public void setDirection(int direction) {
 			this.direction = direction;
