@@ -92,7 +92,7 @@ public class Player extends MobileEntity {
 	}
 
 	public void disconnect() {
-		System.out.println(this + " disconnecting.");
+		System.out.println(this.getUsername() + " disconnecting.");
 		try {
 			logout();
 		} catch (Exception ex) {
@@ -104,7 +104,7 @@ public class Player extends MobileEntity {
 	
 	public void logout() throws Exception {
 		World.getSingleton().unregister(this);
-		System.out.println(this + " has logged out.");
+		System.out.println(this.getUsername() + " has logged out.");
 		if (getIndex() != -1) {
 			PlayerSave.save(this);
 		}

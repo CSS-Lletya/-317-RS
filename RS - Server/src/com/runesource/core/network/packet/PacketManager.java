@@ -1,5 +1,6 @@
 package com.runesource.core.network.packet;
 
+import com.runesource.core.network.packet.in.ClickButtonPacket;
 import com.runesource.core.network.packet.in.MovementPacket;
 import com.runesource.core.world.model.entity.mobile.player.Player;
 
@@ -11,6 +12,7 @@ public final class PacketManager {
 		listeners[98] = new MovementPacket();
 		listeners[164] = new MovementPacket();
 		listeners[248] = new MovementPacket();
+		listeners['\u00B9'] = new ClickButtonPacket();
 	}
 	
 	public void notify(Player player, Packet packet) {
